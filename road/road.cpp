@@ -4,10 +4,19 @@
 class Vehicle
 {
 private:
-	int type;
 	int speed;
 	int position;
 public:
+	Vehicle(int s, int p) : speed(s), position(p) {}
+	
+	virtual void move(int distance) = 0;
+	virtual std::string getType() = 0;
+
+	int getSpeed() const { return speed; }
+	int getPosition()  const { return position; }
+	void setPosition(int p) { position = p; }
+	
+	virtual ~Vehicle() = default;
 };
 
 class Car : public Vehicle
