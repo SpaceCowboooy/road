@@ -122,5 +122,11 @@ public:
 
 int main()
 {
-
+	Road road(1000, 20, 3, 60);
+	road.addVehicle(new Car(50, 0));
+	road.addVehicle(new Truck(40, 0));
+	road.addVehicle(new Motorbike(70, 0));
+	road.updateTraffic(1);
+	road.displayVehicles();
+	return 0;
 }
