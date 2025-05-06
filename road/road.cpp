@@ -76,6 +76,41 @@ private:
 	int speedLimit;
 	std::vector<Vehicle*> vehicles;
 public:
+	Road(int l, int w, int n, int s) : length(l), width(w), lanes(n), speedLimit(s) {}
+	void addVehicle(Vehicle* v)
+	{
+		if (vehicles.size() < lanes)
+		{
+			vehicles.push_back(v);
+		}
+		else
+		{
+			std::cout << "No more lanes available for new vehicles." << std::endl;
+		}
+	}
+
+	void updateTraffic(int distance)
+	{
+		for (auto& vehicle : vehicles)
+		{
+			if (vehicle->getSpeed() <= speedLimit)
+			{
+				vehicle->move(distance);
+			}
+			else
+			{
+				std::cout << vehicle->getType() << " is over the speed limit!" << std::endl;
+			}
+		}
+	}
+
+	void displayVehicles()
+	{
+		for (auto& vehicle : vehicles)
+		{
+			std::cout << vehicle->getType() << " is at position: " << vehicle->getPosition() << std::endl;
+		}
+	}
 };
 
 int main()
