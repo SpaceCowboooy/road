@@ -111,6 +111,13 @@ public:
 			std::cout << vehicle->getType() << " is at position: " << vehicle->getPosition() << std::endl;
 		}
 	}
+	~Road()
+	{
+		for (auto& vehicle : vehicles)
+		{
+			delete vehicle;
+		}
+	}
 };
 
 int main()
