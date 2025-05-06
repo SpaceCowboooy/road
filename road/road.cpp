@@ -1,5 +1,29 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
+#include <string>
+
+std::string toLower(const std::string& input)
+{
+	std::string output = input;
+	std::transform(output.begin(), output.end(), output.begin(), ::tolower);
+	return output;
+};
+
+bool containsHelp(const std::string& input)
+{
+	std::string lowerInput = toLower(input);
+	return lowerInput.find("help") != std::string::npos;
+}
+
+void printHelp ()
+{
+	std::cout << "Commands:\n";
+	std::cout << "  add [car|truck|motorbike] [speed] - Add a new vehicle\n";
+	std::cout << "  step [distance] - Move all vehicles by distance\n";
+	std::cout << "  show - Show vehicle positions\n";
+	std::cout << "  exit - Quit program\n";
+}
 
 class Vehicle
 {
@@ -122,11 +146,18 @@ public:
 
 int main()
 {
-	Road road(1000, 20, 3, 60);
-	road.addVehicle(new Car(50, 0));
-	road.addVehicle(new Truck(40, 0));
-	road.addVehicle(new Motorbike(70, 0));
-	road.updateTraffic(1);
-	road.displayVehicles();
+	std::string input;
+	do
+	{
+		std::getline(std::cin, input);
+		if (containsHelp(input))
+		{
+			printHelp();
+			continue;
+		}
+
+
+	} while (true);
+
 	return 0;
 }
