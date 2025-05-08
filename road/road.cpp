@@ -146,6 +146,8 @@ public:
 
 int main()
 {
+	std::cout << "Road Simulation\n";
+	std::cout << "Type 'help' for a list of commands.\n";
 	std::string input;
 	do
 	{
@@ -155,7 +157,55 @@ int main()
 			printHelp();
 			continue;
 		}
-
+		else if (input == "exit")
+		{
+			break;
+		}
+		else if (input == "add car")
+		{
+			int speed;
+			std::cout << "Enter speed for Car: ";
+			std::cin >> speed;
+			std::cin.ignore();
+			Road road(100, 2, 2, 60);
+			road.addVehicle(new Car(speed, 0));
+		}
+		else if (input == "add truck")
+		{
+			int speed;
+			std::cout << "Enter speed for Truck: ";
+			std::cin >> speed;
+			std::cin.ignore();
+			Road road(100, 2, 2, 60);
+			road.addVehicle(new Truck(speed, 0));
+		}
+		else if (input == "add motorbike")
+		{
+			int speed;
+			std::cout << "Enter speed for Motorbike: ";
+			std::cin >> speed;
+			std::cin.ignore();
+			Road road(100, 2, 2, 60);
+			road.addVehicle(new Motorbike(speed, 0));
+		}
+		else if (input == "step")
+		{
+			int distance;
+			std::cout << "Enter distance to move: ";
+			std::cin >> distance;
+			std::cin.ignore();
+			Road road(100, 2, 2, 60);
+			road.updateTraffic(distance);
+		}
+		else if (input == "show")
+		{
+			Road road(100, 2, 2, 60);
+			road.displayVehicles();
+		}
+		else
+		{
+			std::cout << "Unknown command. Type 'help' for a list of commands.\n";
+		}
 
 	} while (true);
 
