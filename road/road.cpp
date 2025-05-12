@@ -137,18 +137,26 @@ public:
         {
             if (vehicle->getSpeed() <= speedLimit)
             {
+                int oldPos = vehicle->getPosition();
                 vehicle->move(distance);
-                if (vehicle->getPosition() > length)
+                int newPos = vehicle->getPosition();
+
+                std::cout << vehicle->getType() << " moved from " << oldPos << " to " << newPos << ".\n";
+
+                if (newPos > length)
                 {
-                    std::cout << vehicle->getType() << " has gone beyond the road length!\n";
+                    std::cout << vehicle->getType() << " reached the end of the road and stopped.\n";
+                    vehicle->setPosition(length);
                 }
             }
             else
             {
-                std::cout << vehicle->getType() << " is over the speed limit!\n";
+                std::cout << vehicle->getType() << " is over the speed limit! (" << vehicle->getSpeed()
+                    << " > " << speedLimit << ")\n";
             }
         }
     }
+
 
     void displayVehicles() const
     {
