@@ -21,14 +21,18 @@ bool containsHelp(const std::string& input)
 
 void printHelp()
 {
-    std::cout << "Help Menu:\n";
-    std::cout << "First of all create a road!!!\n";
-    std::cout << "Commands:\n";
-    std::cout << "  create road - Create a new road\n";
-    std::cout << "  add [car|truck|motorbike] [speed] - Add a new vehicle\n";
-    std::cout << "  step - Move all vehicles by distance\n";
-    std::cout << "  show - Show vehicle positions\n";
-    std::cout << "  exit - Quit program\n";
+    std::cout << "\n=== Help Menu ===\n";
+    std::cout << "Step-by-step instructions to use the simulator:\n";
+    std::cout << "  1. create road             -> Create a new road (required before anything else)\n";
+    std::cout << "  2. add [car|truck|motorbike] [speed] -> Add a vehicle with specified speed\n";
+    std::cout << "  3. step                    -> Move all vehicles by given distance (based on their type and speed)\n";
+    std::cout << "  4. show                    -> Show current vehicle positions on the road (visualized)\n";
+    std::cout << "  5. exit                    -> Quit the program\n";
+    std::cout << "\nVehicle multipliers:\n";
+    std::cout << "  Car: speed * distance * 2\n";
+    std::cout << "  Truck: speed * distance * 1\n";
+    std::cout << "  Motorbike: speed * distance * 3\n";
+    std::cout << "====================\n\n";
 }
 
 class Vehicle
@@ -102,7 +106,6 @@ class Road
 {
 private:
     int length;
-    int width;
     int lanes;
     int speedLimit;
     std::vector<std::unique_ptr<Vehicle>> vehicles;
@@ -111,7 +114,6 @@ public:
     Road()
     {
         length = getValidatedInput("Enter road length: ");
-        width = getValidatedInput("Enter road width: ");
         lanes = getValidatedInput("Enter number of lanes: ");
         speedLimit = getValidatedInput("Enter speed limit: ");
         std::cout << "Road created.\n";
@@ -136,6 +138,10 @@ public:
             if (vehicle->getSpeed() <= speedLimit)
             {
                 vehicle->move(distance);
+                if (vehicle->getPosition() > length)
+                {
+                    std::cout << vehicle->getType() << " has gone beyond the road length!\n";
+                }
             }
             else
             {
@@ -146,10 +152,18 @@ public:
 
     void displayVehicles() const
     {
-        for (const auto& vehicle : vehicles)
-        {
-            std::cout << vehicle->getType() << " is at position: " << vehicle->getPosition() << '\n';
-        }
+            std::cout << "\n=== Road Visualization ===\n";
+            for (const auto& vehicle : vehicles)
+            {
+                std::string line(length + 1, '-');
+                int pos = std::min(vehicle->getPosition(), length);
+                if (pos >= 0 && pos <= length)
+                {
+                    line[pos] = vehicle->getType()[0];
+                }
+                std::cout << vehicle->getType() << ": " << line << "\n";
+            }
+            std::cout << "===========================\n\n";
     }
 
     int getValidatedInput(const std::string& prompt)
@@ -172,6 +186,8 @@ public:
             }
         }
     }
+
+    int getLength() const { return length; }
 };
 
 int main()
