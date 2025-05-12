@@ -196,6 +196,7 @@ public:
     }
 
     int getLength() const { return length; }
+	bool isEmpty() const { return vehicles.empty(); }
 };
 
 int main()
@@ -264,6 +265,11 @@ int main()
         }
         else if (input == "step")
         {
+            if (road->isEmpty()) {
+                std::cout << "No vehicles on the road. Add some first.\n";
+                continue;
+            }
+
             int distance = road->getValidatedInput("Enter distance to move: ");
             road->updateTraffic(distance);
         }
