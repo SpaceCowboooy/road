@@ -160,8 +160,7 @@ public:
 
     void displayVehicles() const
     {
-            std::cout << "\n=== Road Visualization ===\n";
-            for (const auto& vehicle : vehicles)
+             for (const auto& vehicle : vehicles)
             {
                 std::string line(length + 1, '-');
                 int pos = std::min(vehicle->getPosition(), length);
@@ -171,7 +170,8 @@ public:
                 }
                 std::cout << vehicle->getType() << ": " << line << "\n";
             }
-            std::cout << "===========================\n\n";
+            std::cout << "===========================\n\n";      std::cout << "\n=== Road Visualization ===\n";
+     
     }
 
     int getValidatedInput(const std::string& prompt)
